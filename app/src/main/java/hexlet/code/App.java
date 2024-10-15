@@ -9,6 +9,7 @@ import picocli.CommandLine.Parameters;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -40,28 +41,44 @@ public class App implements Runnable {
             var map1 = mapper.readValue(Files.readAllBytes(Paths.get(filePath1)), Map.class);
             var map2 = mapper.readValue(Files.readAllBytes(Paths.get(filePath2)), Map.class);
             Map<String, String> differences = getDifferences(map1, map2);
-            System.out.println("Differences:");
-            differences.forEach((key, value) -> System.out.println(key + ": " + value));
+            System.out.println("{");
+            differences.forEach((key, value) -> {
+                if (key.endsWith("_new")) {
+                    System.out.println("  + " + key.replace("_new", "") + ": " + value.substring(2));
+                } else if (value.startsWith("- ") || value.startsWith("+ ")) {
+                    System.out.println("  " + value.charAt(0) + " " + key + ": " + value.substring(2));
+                } else {
+                    System.out.println("    " + key + ": " + value);
+                }
+            });
+            System.out.println("}");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
     private Map<String, String> getDifferences(Map<String, Object> map1, Map<String, Object> map2) {
-        Map<String, String> differences = new TreeMap<>();
-        map1.forEach((key, value) -> {
+        Map<String, String> differences = new HashMap<>();
+        map1.forEach((key, value1) -> {
             if (!map2.containsKey(key)) {
-                differences.put(key, "removed");
-            } else if (!value.equals(map2.get(key))) {
-                differences.put(key, "changed");
+                differences.put(key, "- " + value1);
+            } else {
+                var value2 = map2.get(key);
+                if (!value1.equals(value2)) {
+                    differences.put(key, "- " + value1);
+                    differences.put(key + "_new", "+ " + value2);
+                } else {
+                    differences.put(key, "  " + value1);
+                }
             }
         });
-
-        map2.forEach((key, value) -> {
+        map2.forEach((key, value2) -> {
             if (!map1.containsKey(key)) {
-                differences.put(key, "added");
+                differences.put(key, "+ " + value2);
             }
         });
+        Map<String, String> sortedDifferences = new TreeMap<>(Comparator.naturalOrder());
+        sortedDifferences.putAll(differences);
 
-        return differences;
+        return sortedDifferences;
     }
 }
