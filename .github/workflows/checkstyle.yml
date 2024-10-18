@@ -7,4 +7,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run Checkstyle
+        working-directory: ./app
         run: ./gradlew checkstyleMain
