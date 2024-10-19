@@ -8,5 +8,5 @@ jobs:
     steps:
       - name: Run Checkstyle
         run: |
-          cd app
+          cd ../app
           ./gradlew checkstyleMain
