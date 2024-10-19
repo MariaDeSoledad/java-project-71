@@ -9,9 +9,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Run Checkstyle
+      - name: Run CheckstyleMain
         run: |
           cd app
           ./gradlew checkstyleMain
+      - name: Run Checkstyle
+        run: |
+          cd app
+          ./gradlew checkstyleTest
+
       - name: List files for debugging
         run: ls -la
