@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("application")
+    id("checkstyle")
 }
 
 group = "hexlet.code"
@@ -27,4 +28,17 @@ tasks.test {
 
 application {
     mainClass ="hexlet.code.App"
+}
+
+checkstyle {
+    toolVersion = "10.12.4"
+}
+
+tasks.withType<Checkstyle> {
+    reports {
+        xml.required.set(false)
+        html.required.set(true)
+    }
+    source = sourceSets.main.get().allSource
+    configFile = file("config/checkstyle/checkstyle.xml")
 }

@@ -23,7 +23,8 @@ public class App implements Runnable {
     private String filePath1;
     @Parameters(index = "1", paramLabel = "filepath2", description = "path to second file")
     private String filePath2;
-    @Option(names = {"-f", "--format"}, description = "output format [default: ${DEFAULT-VALUE}]", defaultValue = "stylish", paramLabel = "format")
+    @Option(names = {"-f", "--format"}, description = "output format [default: ${DEFAULT-VALUE}]",
+            defaultValue = "stylish", paramLabel = "format")
     private String format;
     @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit.")
     private boolean help;
@@ -81,4 +82,4 @@ public class App implements Runnable {
 
         return sortedDifferences;
     }
-}//jkgfdjhgjfdkhffh
+}
