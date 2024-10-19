@@ -16,5 +16,7 @@ jobs:
 
       - name: Run Checkstyle
         run: |
-          cd java-project-71/app
+          cd app
           ./gradlew checkstyleMain
+      - name: List files for debugging
+        run: ls -la
