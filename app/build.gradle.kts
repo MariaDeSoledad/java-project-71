@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("application")
     id("checkstyle")
+    id("jacoco")
 }
 
 group = "hexlet.code"
@@ -24,19 +25,30 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport) // Генерируем отчет после тестов
 }
 
-application {
-    mainClass ="hexlet.code.App"
+jacoco {
+    toolVersion = "0.8.12"
 }
 
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // Тесты должны выполниться перед созданием отчета
+    reports {
+        xml.required.set(false)
+        csv.required.set(false)
+        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml")) // Исправлено с .outputLocation = на .outputLocation.set
+    }
+}
+
+// Настройка Checkstyle
 checkstyle {
     toolVersion = "10.12.4"
 }
 
 tasks.withType<Checkstyle> {
     reports {
-        xml.required.set(false)
+        xml.required.set(true)
         html.required.set(true)
     }
     source = sourceSets.main.get().allSource
