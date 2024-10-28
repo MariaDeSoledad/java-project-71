@@ -1,3 +1,6 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
 plugins {
     id("java")
     id("application")
@@ -38,11 +41,14 @@ checkstyle {
     toolVersion = "10.12.4"
 }
 
-tasks.withType<Checkstyle> {
-    reports {
-        xml.required.set(true)
-        html.required.set(true)
+tasks.test {
+    useJUnitPlatform()
+    // https://technology.lastminute.com/junit5-kotlin-and-gradle-dsl/
+    testLogging {
+        exceptionFormat = TestExceptionFormat.FULL
+        events = mutableSetOf(TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.SKIPPED)
+        // showStackTraces = true
+        // showCauses = true
+        showStandardStreams = true
     }
-    source = sourceSets.main.get().allSource
-    configFile = file("config/checkstyle/checkstyle.xml")
 }
