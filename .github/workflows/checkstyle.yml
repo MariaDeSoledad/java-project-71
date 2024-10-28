@@ -10,16 +10,16 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Make gradlew executable
-        run: chmod +x ./gradlew
+        run: chmod +x ./app/gradlew
 
       - name: Run CheckstyleMain
-        run: ./gradlew checkstyleMain
+        run: ./app/gradlew checkstyleMain
 
       - name: Run Checkstyle
-        run: ./gradlew checkstyleTest
+        run: ./app/gradlew checkstyleTest
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./app/gradlew build
 
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v9.0.0
@@ -27,6 +27,6 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.d3edb3cd6c31ef084a03087aec4f2615deaf796d285d03a74737e99bfa4bbbe0 }}
           JACOCO_SOURCE_PATH: ${{ github.workspace }}/app/src/main/java
         with:
-          coverageCommand: ./gradlew jacocoTestReport
+          coverageCommand: ./app/gradlew jacocoTestReport
           coverageLocations: ${{ github.workspace }}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
 
