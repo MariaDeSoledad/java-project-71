@@ -32,16 +32,8 @@ jacoco {
     toolVersion = "0.8.12"
 }
 
-tasks.jacocoTestReport {
-    dependsOn(tasks.test) // Тесты должны выполниться перед созданием отчета
-    reports {
-        xml.required.set(false)
-        csv.required.set(false)
-        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml")) // Исправлено с .outputLocation = на .outputLocation.set
-    }
-}
+tasks.jacocoTestReport { reports { xml.required.set(true) } }
 
-// Настройка Checkstyle
 checkstyle {
     toolVersion = "10.12.4"
 }
