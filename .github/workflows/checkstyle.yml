@@ -9,9 +9,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Make gradlew executable
-        run: chmod +x ./app/gradlew
-
       - name: Run CheckstyleMain
         run: |
           cd app
@@ -23,15 +20,16 @@ jobs:
           ./gradlew checkstyleTest
 
       - name: Build with Gradle
-        run: |
-          cd app
-          ./gradlew build
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+          build-root-directory: app
 
       - name: Publish code coverage
-        uses: paambaati/codeclimate-action@v9.0.0
+        uses: paambaati/codeclimate-action@v3.0.0
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.d3edb3cd6c31ef084a03087aec4f2615deaf796d285d03a74737e99bfa4bbbe0 }}
-          JACOCO_SOURCE_PATH: ${{ github.workspace }}/app/src/main/java
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          JACOCO_SOURCE_PATH: app/src/main/java
         with:
-          coverageCommand: ./gradlew -p app jacocoTestReport
+          coverageCommand: make report
           coverageLocations: ${{ github.workspace }}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
