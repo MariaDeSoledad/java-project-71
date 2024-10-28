@@ -34,3 +34,4 @@ jobs:
           workingDirectory: ./app
           coverageCommand: make report
           coverageLocations: ${{ github.workspace }}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+          prefix: app
