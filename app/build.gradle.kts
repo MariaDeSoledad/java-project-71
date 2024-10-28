@@ -52,3 +52,11 @@ tasks.test {
         showStandardStreams = true
     }
 }
+tasks.withType<Checkstyle> {
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        source = sourceSets.main.get().allSource
+        configFile = file("config/checkstyle/checkstyle.xml")
+    }
+}
