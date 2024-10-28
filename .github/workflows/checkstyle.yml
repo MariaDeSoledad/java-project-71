@@ -13,13 +13,19 @@ jobs:
         run: chmod +x ./app/gradlew
 
       - name: Run CheckstyleMain
-        run: ./app/gradlew checkstyleMain
+        run: |
+          cd app
+          ./gradlew checkstyleMain
 
       - name: Run Checkstyle
-        run: ./app/gradlew checkstyleTest
+        run: |
+          cd app
+          ./gradlew checkstyleTest
 
       - name: Build with Gradle
-        run: ./app/gradlew build
+        run: |
+          cd app
+          ./gradlew build
 
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v9.0.0
