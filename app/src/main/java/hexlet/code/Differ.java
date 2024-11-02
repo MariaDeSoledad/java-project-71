@@ -29,10 +29,16 @@ public class Differ {
     }
 
     private static String getFileFormat(String filePath) {
-        int dotIndex = filePath.lastIndexOf(".");
+        if (filePath == null) {
+            throw new IllegalArgumentException("File path cannot be null");
+        }
 
-        return dotIndex > 0 ? filePath.substring(dotIndex + 1) : "";
+        int dotIndex = filePath.lastIndexOf(".");
+        return (dotIndex > 0 && dotIndex < filePath.length() - 1)
+                ? filePath.substring(dotIndex + 1)
+                : "";
     }
+
 
     private static Path getAbsolutePath(String filePath) {
         return Paths.get(filePath).toAbsolutePath().normalize();
