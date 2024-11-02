@@ -35,12 +35,16 @@ public class Differences {
     }
     public static Map<String, Object> getDifferencesMap(String status, String name, Object value) {
         Map<String, Object> diffMap = new LinkedHashMap<>();
+
         diffMap.put("status", status);
+        diffMap.put("name", name);
+
         if (value == null) {
-            diffMap.put("value", null);
+            diffMap.put("value1", null);
         } else {
-            diffMap.put("value", value);
+            diffMap.put("value1", value);
         }
+
         return diffMap;
     }
 
