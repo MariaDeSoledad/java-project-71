@@ -12,7 +12,7 @@ import java.util.concurrent.Callable;
         name = "gendiff",
         description = "Compares two configuration files and shows a difference."
 )
-public class App implements Callable<Integer> {
+public final class App implements Callable<Integer> {
     private static final int SUCCESS_EXIT_CODE = 0;
     @Parameters(index = "0", paramLabel = "filepath1", description = "path to first file")
     private String filePath1;
