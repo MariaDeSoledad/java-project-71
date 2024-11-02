@@ -13,7 +13,7 @@ public class Parser {
     public static Map<String, Object> parse(String fileContent, String fileFormat) throws IOException {
         if (fileFormat.equals("json")) {
             return getJson(fileContent);
-        } else if (fileFormat.equals("yaml")) {
+        } else if (fileFormat.equals("yml")) {
             return getYaml(fileContent);
         } else {
             throw new IOException("Unsupported file format: " + fileFormat);
