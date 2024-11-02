@@ -17,6 +17,14 @@ public class Differ {
         String file1Format = getFileFormat(filePath1);
         String file2Format = getFileFormat(filePath2);
 
+        if (!file1Format.equals("json") && !file1Format.equals("yml")) {
+            throw new IOException("Unsupported file format for file 1: " + file1Format);
+        }
+        if (!file2Format.equals("json") && !file2Format.equals("yml")) {
+            throw new IOException("Unsupported file format for file 2: " + file2Format);
+        }
+
+
         String file1Content = getContent(filePath1);
         String file2Content = getContent(filePath2);
 
