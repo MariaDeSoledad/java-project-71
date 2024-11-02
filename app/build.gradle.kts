@@ -23,6 +23,7 @@ dependencies {
     implementation("info.picocli:picocli:4.7.6")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.assertj:assertj-core:3.24.2")
     implementation(platform("com.fasterxml.jackson:jackson-bom:2.17.2"))
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
 }
