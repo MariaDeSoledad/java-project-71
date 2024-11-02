@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Differ {
+
     public static String generate(String filePath1, String filePath2) throws IOException {
         return generate(filePath1, filePath2, "stylish");
     }
@@ -22,18 +23,21 @@ public class Differ {
         Map<String, Object> parsedFile1 = Parser.parse(file1Content, file1Format);
         Map<String, Object> parsedFile2 = Parser.parse(file2Content, file2Format);
 
-        List<Map<String, Object>> diffList = Differences.getDiff(parsedFile1, parsedFile2);
+        List<Map<String, Object>> diffList = FindDiff.getDiff(parsedFile1, parsedFile2);
 
         return Formatter.constructFormatFromMap(diffList, formatName);
     }
+
     private static String getFileFormat(String filePath) {
         int dotIndex = filePath.lastIndexOf(".");
 
         return dotIndex > 0 ? filePath.substring(dotIndex + 1) : "";
     }
+
     private static Path getAbsolutePath(String filePath) {
         return Paths.get(filePath).toAbsolutePath().normalize();
     }
+
     private static String getContent(String filePath) throws IOException {
         return Files.readString(getAbsolutePath(filePath));
     }

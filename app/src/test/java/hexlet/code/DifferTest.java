@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static hexlet.code.Differ.generate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
@@ -42,55 +41,55 @@ class DifferTest {
     @Test
     public void testDifferGenerateStylishJSON() throws Exception {
         String expected = getData("resultStylish.txt");
-        String actual = generate(file1JsonPath, file2JsonPath);
+        String actual = Differ.generate(file1JsonPath, file2JsonPath);
         assertThat(actual).isEqualTo(expected);
 
-        String actualStylish = generate(file1JsonPath, file2JsonPath, "stylish");
+        String actualStylish = Differ.generate(file1JsonPath, file2JsonPath, "stylish");
         assertThat(actualStylish).isEqualTo(expected);
     }
 
     @Test
     public void testDifferGenerateStylishYAML() throws Exception {
         String expected = getData("resultStylish.txt");
-        String actual = generate(file1YmlPath, file2YmlPath);
+        String actual = Differ.generate(file1YmlPath, file2YmlPath);
         assertThat(actual).isEqualTo(expected);
 
-        String actualStylish = generate(file1YmlPath, file2YmlPath, "stylish");
+        String actualStylish = Differ.generate(file1YmlPath, file2YmlPath, "stylish");
         assertThat(actualStylish).isEqualTo(expected);
     }
 
     @Test
     public void testDifferGeneratePlainJSON() throws Exception {
         String expected = getData("resultPlain.txt");
-        String actual = generate(file1JsonPath, file2JsonPath, "plain");
+        String actual = Differ.generate(file1JsonPath, file2JsonPath, "plain");
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
     public void testDifferGeneratePlainYAML() throws Exception {
         String expected = getData("resultPlain.txt");
-        String actual = generate(file1YmlPath, file2YmlPath, "plain");
+        String actual = Differ.generate(file1YmlPath, file2YmlPath, "plain");
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
     public void testDifferGenerateJson() throws Exception {
         String expected = getData("resultJson.json");
-        String actual = generate(file1JsonPath, file2JsonPath, "json");
+        String actual = Differ.generate(file1JsonPath, file2JsonPath, "json");
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
     public void testDifferGenerateYaml() throws Exception {
         String expected = getData("resultJson.json");
-        String actual = generate(file1YmlPath, file2YmlPath, "json");
+        String actual = Differ.generate(file1YmlPath, file2YmlPath, "json");
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
     public void testDifferGenerateIncorrectPath() {
         var thrown = catchThrowable(
-                () -> generate(incorrectPath, incorrectPath)
+                () -> Differ.generate(incorrectPath, incorrectPath)
         );
 
         assertThat(thrown).isInstanceOf(Exception.class);
