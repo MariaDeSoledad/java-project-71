@@ -7,7 +7,7 @@ import picocli.CommandLine.Parameters;
 
 import java.util.concurrent.Callable;
 
-import static hexlet.code.Difffer.generate;
+import static hexlet.code.Differ.generate;
 
 
 @Command(
