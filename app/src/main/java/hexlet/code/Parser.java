@@ -20,8 +20,9 @@ public class Parser {
         }
     }
     private static Map<String, Object> getJson(String fileContent) throws IOException {
-        ObjectMapper mapperJson = new JsonMapper();
-        return mapperJson.readValue(fileContent, new TypeReference<Map<String, Object>>() { });
+        ObjectMapper jm = new JsonMapper();
+
+        return jm.readValue(fileContent, new TypeReference<>() { });
     }
     private static Map<String, Object> getYaml(String fileContent) throws IOException {
         ObjectMapper mapperYaml = new YAMLMapper();
